@@ -1,4 +1,4 @@
-import EmailCapture from "@/components/EmailCapture";
+import EmailCapture from "../components/EmailCapture";
 
 export default function Home() {
   return (
