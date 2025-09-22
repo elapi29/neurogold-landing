@@ -3,29 +3,33 @@ import { useRouter } from "next/navigation";
 
 export default function EmailCapture() {
   const router = useRouter();
-  const endpoint =
-    process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || "https://formspree.io/f/xxxxxxxx";
+  // ⚠️ usa tu endpoint real de Formspree aquí
+  const endpoint = "https://formspree.io/f/xdkwnwwn";
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    // Usamos JS para redirigir a /thanks/ al recibir 200 OK
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: data,
-      mode: "cors",
-    });
-    if (res.ok) router.push("/thanks/");
-    else alert("No pudimos enviar el formulario. Probá de nuevo.");
+    try {
+      // POST simple (multipart/form-data) sin headers extras
+      const res = await fetch(endpoint, { method: "POST", body: data });
+      if (res.ok) {
+        router.push("/thanks/");
+      } else {
+        // fallback: si Formspree devuelve 4xx/5xx, hacemos POST HTML nativo
+        form.submit();
+      }
+    } catch {
+      // fallback por si hay error de red
+      form.submit();
+    }
   }
 
   return (
     <form
       onSubmit={onSubmit}
-      action={endpoint}     // fallback sin JS
-      method="POST"         // ← importante
+      action={endpoint}   // fallback sin JS
+      method="POST"       // MUY importante
       className="w-full max-w-md mx-auto flex gap-2"
       noValidate
     >
