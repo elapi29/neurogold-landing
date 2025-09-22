@@ -36,3 +36,4 @@ npm run build
 - SEO: `metadata`, Open Graph/Twitter, `robots.txt`, `sitemap.xml`
 - JSON-LD de Organization
 - Form con validación y honeypot
+enable form
