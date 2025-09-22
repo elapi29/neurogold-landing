@@ -1,7 +1,7 @@
 export default function EmailCapture() {
   return (
     <form
-      action="https://formsubmit.co/elapi.projects@gmail.com"
+      action="https://formsubmit.co/elapi.projects+leads@gmail.com"
       method="POST"
       className="w-full max-w-md mx-auto flex gap-2"
       noValidate
@@ -27,11 +27,7 @@ export default function EmailCapture() {
       <input type="text" name="_honey" className="hidden" aria-hidden="true" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_subject" value="Nuevo lead — Neurogold" />
-      <input
-        type="hidden"
-        name="_next"
-        value="https://elapi29.github.io/neurogold-landing/thanks/"
-      />
+      <input type="hidden" name="_next" value="https://elapi29.github.io/neurogold-landing/thanks/" />
     </form>
   );
 }
