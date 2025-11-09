@@ -1,4 +1,4 @@
-import EmailCapture from "@/components/EmailCapture";
+import EmailCapture from "../../components/EmailCapture";
 
 export default function Page({ params: { locale } }: any) {
   const t = dict(locale); // función simple con textos ES/EN/DE

@@ -1,4 +1,4 @@
-import TopBar from "@/components/TopBar";
+import TopBar from "../../components/TopBar";
 export const dynamic = "error"; // asegura export estático
 
 export default function RootLayout({
