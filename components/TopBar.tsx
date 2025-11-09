@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import type { Locale } from "../lib/i18n";
 
-export default function TopBar({ locale }: { locale: "es"|"en"|"de" }) {
+export default function TopBar({ locale }: { locale: Locale }) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -23,27 +24,28 @@ export default function TopBar({ locale }: { locale: "es"|"en"|"de" }) {
                  data-[scrolled=true]:backdrop-blur data-[scrolled=true]:bg-white/70"
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href={`/${locale}/`} className="font-bold">Neurogold</Link>
-        <div className="flex items-center gap-3">
-          <LangSwitcher locale={locale} />
-        </div>
+        {/* Logo → dentro del mismo idioma */}
+        <Link href="." className="font-bold text-slate-900">Neurogold</Link>
+        <LangSwitcher locale={locale} />
       </nav>
     </header>
   );
 }
 
-function LangSwitcher({ locale }: { locale: "es"|"en"|"de" }) {
-  const items = [
+function LangSwitcher({ locale }: { locale: Locale }) {
+  const items: { code: Locale; label: string }[] = [
     { code: "es", label: "ES" },
     { code: "en", label: "EN" },
     { code: "de", label: "DE" },
   ];
   return (
-    <div className="rounded-xl bg-white/60 px-2 py-1 shadow-sm">
+    <div className="rounded-xl bg-white/70 px-2 py-1 shadow-sm backdrop-blur">
       {items.map((it) => (
-        <Link key={it.code}
-          className={`px-2 py-1 text-sm ${locale===it.code ? "font-semibold" : "opacity-60"}`}
-          href={`/${it.code}/`}
+        <Link
+          key={it.code}
+          // desde /<basePath>/<locale>/ ir a ../<otro>/
+          href={`../${it.code}/`}
+          className={`px-2 py-1 text-sm ${locale === it.code ? "font-semibold" : "opacity-60"}`}
         >
           {it.label}
         </Link>
