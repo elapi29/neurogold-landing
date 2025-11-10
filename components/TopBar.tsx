@@ -1,55 +1,48 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
-import type { Locale } from "../lib/i18n";
 
-export default function TopBar({ locale }: { locale: Locale }) {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (!ref.current) return;
-      ref.current.dataset.scrolled = window.scrollY > 24 ? "true" : "false";
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+export default function TopBar({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
   return (
-    <header
-      ref={ref}
-      className="fixed inset-x-0 top-0 z-50 transition
-                 data-[scrolled=false]:bg-transparent
-                 data-[scrolled=true]:backdrop-blur data-[scrolled=true]:bg-white/70"
-    >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        {/* Logo → dentro del mismo idioma */}
-        <Link href="." className="font-bold text-slate-900">Neurogold</Link>
-        <LangSwitcher locale={locale} />
-      </nav>
+    <header className="fixed inset-x-0 top-0 z-40">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/5 shadow-sm">
+          <div className="flex items-center justify-between px-4 py-2">
+            {/* Brand */}
+            <Link href={`/${locale}`} className="flex items-center gap-3">
+              <div className="relative h-8 w-[110px] md:h-9 md:w-[140px]">
+                {/* Tu PNG exacto */}
+                <Image
+                  src="/partners/NDAAWordmark.png"
+                  alt="ND°AA — Neurociencias Deportivas Argentinas"
+                  fill
+                  sizes="(max-width: 768px) 110px, 140px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <span className="hidden sm:block text-sm font-medium text-white/80">
+                Neurogold Training
+              </span>
+            </Link>
+
+            {/* Idiomas simples (si ya tienes i18n, puedes mantener esto o quitarlo) */}
+            <nav className="flex items-center gap-2 text-xs">
+              {["es", "en", "de"].map((l) => (
+                <Link
+                  key={l}
+                  href={`/${l}`}
+                  className={`rounded-md px-2 py-1 ${
+                    l === locale ? "bg-white/10 text-white" : "text-white/70 hover:text-white"
+                  }`}
+                >
+                  {l.toUpperCase()}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </div>
+      </div>
     </header>
-  );
-}
-
-function LangSwitcher({ locale }: { locale: Locale }) {
-  const items: { code: Locale; label: string }[] = [
-    { code: "es", label: "ES" },
-    { code: "en", label: "EN" },
-    { code: "de", label: "DE" },
-  ];
-  return (
-    <div className="rounded-xl bg-white/70 px-2 py-1 shadow-sm backdrop-blur">
-      {items.map((it) => (
-        <Link
-          key={it.code}
-          // desde /<basePath>/<locale>/ ir a ../<otro>/
-          href={`../${it.code}/`}
-          className={`px-2 py-1 text-sm ${locale === it.code ? "font-semibold" : "opacity-60"}`}
-        >
-          {it.label}
-        </Link>
-      ))}
-    </div>
   );
 }

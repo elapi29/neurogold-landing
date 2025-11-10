@@ -1,52 +1,54 @@
-"use client";
 import Image from "next/image";
-import React from "react";
 
-type Locale = "es" | "en" | "de";
-
-const txt: Record<Locale, { title: string; note: string }> = {
-  es: { title: "Aliados", note: "Activos en /public/partners/ (neurocare.webp y gtec.svg)." },
-  en: { title: "Allies", note: "Assets in /public/partners/ (neurocare.webp and gtec.svg)." },
-  de: { title: "Partner", note: "Assets unter /public/partners/ (neurocare.webp und gtec.svg)." },
-};
-
-export default function Allies({ locale = "es" }: { locale?: Locale }) {
-  const t = txt[locale];
-  const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
+export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
-      <h2 className="text-4xl font-bold text-slate-900 text-center mb-8">{t.title}</h2>
+    <section className="mx-auto max-w-6xl px-4">
+      <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Aliados</h2>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-3">
         {/* neurocare APOLLO */}
-        <div className="rounded-2xl border p-8 shadow-sm flex items-center justify-center bg-white/60">
-          {/* WEBP (Next/Image optimiza correctamente) */}
-          <Image
-            src={`${prefix}/partners/neurocare.webp`}
-            alt="neurocare APOLLO"
-            width={420}
-            height={120}
-            className="h-14 w-auto"
-            priority
-          />
+        <div className="rounded-2xl border p-6 shadow-sm bg-white/70">
+          <div className="relative mx-auto h-10 w-[180px]">
+            <Image
+              src="/partners/neurocare.webp"
+              alt="neurocare APOLLO"
+              fill
+              className="object-contain"
+              sizes="180px"
+            />
+          </div>
         </div>
 
         {/* g.tec BCI */}
-        <div className="rounded-2xl border p-8 shadow-sm flex items-center justify-center bg-white/60">
-          {/* Para SVG Next/Image no optimiza, pero lo sirve bien igual */}
-          <Image
-            src={`${prefix}/partners/gtec.svg`}
-            alt="g.tec BCI"
-            width={420}
-            height={120}
-            className="h-14 w-auto"
-            priority
-          />
+        <div className="rounded-2xl border p-6 shadow-sm bg-white/70">
+          <div className="relative mx-auto h-10 w-[180px]">
+            <Image
+              src="/partners/gtec.svg"
+              alt="g.tec BCI"
+              fill
+              className="object-contain"
+              sizes="180px"
+            />
+          </div>
+        </div>
+
+        {/* ND°AA */}
+        <div className="rounded-2xl border p-6 shadow-sm bg-white/70">
+          <div className="relative mx-auto h-10 w-[200px]">
+            <Image
+              src="/partners/NDAAWordmark.png"
+              alt="ND°AA — Neurociencias Deportivas Argentinas"
+              fill
+              className="object-contain"
+              sizes="200px"
+            />
+          </div>
         </div>
       </div>
 
-      <p className="text-center text-sm text-slate-500 mt-6">{t.note}</p>
+      <p className="mt-4 text-center text-sm text-slate-500">
+        Activos en <code>/public/partners/</code> (neurocare.webp, gtec.svg, NDAAWordmark.png).
+      </p>
     </section>
   );
 }
