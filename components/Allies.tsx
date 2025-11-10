@@ -1,5 +1,5 @@
-// components/Allies.tsx
-import Image from "next/image";
+/import Image from "next/image";
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" o "/neurogold-landing"
 
 export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
   const title = locale === "de" ? "Partner" : locale === "en" ? "Allies" : "Aliados";
@@ -15,7 +15,7 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
         <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
           <div className="flex items-center justify-center">
             <Image
-              src="/partners/neurocare.webp"
+              src={`${prefix}/partners/neurocare.webp`}
               alt="neurocare APOLLO"
               width={220}
               height={56}
@@ -30,7 +30,7 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
         <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
           <div className="flex items-center justify-center">
             <Image
-              src="/partners/gtec.svg"
+              src={`${prefix}/partners/gtec.svg`}
               alt="g.tec BCI"
               width={220}
               height={56}
@@ -44,7 +44,7 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
 
       <div className="mt-8 flex items-center justify-center">
         <Image
-          src="/partners/NDAAWordmark.png"
+          src={`${prefix}/partners/NDAAWordmark.png`}
           alt="ND·AA — Neurociencias Deportivas Argentinas"
           width={380}
           height={120}
@@ -55,8 +55,7 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
       </div>
 
       <p className="mt-3 text-center text-sm text-slate-500">
-        Activos en <code>/public/partners/</code> (<code>neurocare.webp</code>, <code>gtec.svg</code> y{" "}
-        <code>NDAAWordmark.png</code>).
+        Activos en <code>/public/partners/</code> (<code>neurocare.webp</code>, <code>gtec.svg</code> y <code>NDAAWordmark.png</code>).
       </p>
     </section>
   );
