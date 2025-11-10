@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 type Locale = "es" | "en" | "de";
 
@@ -11,138 +11,210 @@ const heroContent: Record<
     title: "Neurogold Training",
     subtitle:
       "Rendimiento sustentable con neurociencia aplicada. Entrenamientos breves y medibles para equipos y atletas.",
-    cta: "Quiero saber más",
-    tags: ["BCI & Neurofeedback", "rTMS", "Análisis de Rendimiento", "Entrenamiento Neurológico"],
+    cta: "Comienza ahora",
+    tags: ["Interactivo", "Neural-glow", "Exportación"],
   },
   en: {
     title: "Neurogold Training",
     subtitle:
       "Sustainable performance powered by applied neuroscience. Short, measurable training blocks for teams and athletes.",
-    cta: "Keep me posted",
-    tags: ["BCI & Neurofeedback", "rTMS", "Performance Analysis", "Neural Training"],
+    cta: "Start now",
+    tags: ["Interactive", "Neural glow", "Static export"],
   },
   de: {
     title: "Neurogold Training",
     subtitle:
       "Nachhaltige Leistung mit angewandter Neurowissenschaft. Kurze, messbare Trainingsblöcke für Teams und Athlet:innen.",
-    cta: "Mehr erfahren",
-    tags: ["BCI & Neurofeedback", "rTMS", "Leistungsanalyse", "Neurologisches Training"],
+    cta: "Jetzt starten",
+    tags: ["Interaktiv", "Neural-Glow", "Export"],
   },
 };
 
+type Neuron = {
+  id: number;
+  x: number; // 0..100 (%)
+  y: number; // 0..100 (%)
+  soma: number; // px
+  delay: number;
+  duration: number;
+  dendrites: { angle: number; len: number; curl: number }[];
+};
+
 export default function NeurogoldHeroSky({ locale = "es" }: { locale?: Locale }) {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const content = heroContent[locale];
+  const [mouse, setMouse] = useState({ x: 50, y: 50 });
+  const t = heroContent[locale];
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const onMove = (e: MouseEvent) =>
+      setMouse({ x: (e.clientX / innerWidth) * 100, y: (e.clientY / innerHeight) * 100 });
+    addEventListener("mousemove", onMove, { passive: true });
+    return () => removeEventListener("mousemove", onMove);
   }, []);
 
-  const neurons = Array.from({ length: 12 }, (_, i) => ({
-    id: i,
-    x: 20 + (i % 4) * 20,
-    y: 20 + Math.floor(i / 4) * 30,
-    size: 60 + Math.random() * 40,
-    delay: i * 0.15,
-    duration: 6 + Math.random() * 4,
-  }));
+  // Neuronas “más reales”: soma + dendritas curvas (bezier) + glow
+  const neurons = useMemo<Neuron[]>(() => {
+    const seeds = [
+      { x: 18, y: 30 },
+      { x: 37, y: 15 },
+      { x: 72, y: 22 },
+      { x: 28, y: 68 },
+      { x: 51, y: 50 },
+      { x: 82, y: 64 },
+      { x: 58, y: 80 },
+      { x: 12, y: 55 },
+    ];
+    return seeds.map((p, i) => ({
+      id: i,
+      x: p.x + (Math.random() * 4 - 2),
+      y: p.y + (Math.random() * 4 - 2),
+      soma: 44 + Math.random() * 20,
+      delay: i * 0.2,
+      duration: 6 + Math.random() * 4,
+      dendrites: Array.from({ length: 8 }, () => ({
+        angle: Math.random() * Math.PI * 2,
+        len: 10 + Math.random() * 18, // en vh aprox
+        curl: 0.3 + Math.random() * 0.8,
+      })),
+    }));
+  }, []);
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 overflow-hidden rounded-3xl">
-      {/* Animated gradient */}
+    <div className="relative w-full min-h-[72svh] overflow-hidden rounded-3xl bg-gradient-to-b from-sky-900 to-slate-900 shadow-xl">
+      {/* halo que sigue al puntero */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-30 transition-[background-position]"
         style={{
-          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(0,167,225,.30) 0%, transparent 50%)`,
+          background: `radial-gradient(32rem 32rem at ${mouse.x}% ${mouse.y}%, rgba(56,189,248,.25) 0%, transparent 55%)`,
         }}
       />
 
-      {/* Neural network */}
-      <svg className="absolute inset-0 w-full h-full" style={{ mixBlendMode: "screen" }}>
+      <svg className="absolute inset-0 h-full w-full" style={{ mixBlendMode: "screen" }}>
         <defs>
-          <radialGradient id="neuronGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(0,167,225,.8)" />
-            <stop offset="50%" stopColor="rgba(11,60,93,.4)" />
-            <stop offset="100%" stopColor="rgba(11,60,93,0)" />
+          <radialGradient id="soma" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(186,230,253, .95)" />
+            <stop offset="55%" stopColor="rgba(56,189,248, .55)" />
+            <stop offset="100%" stopColor="rgba(14,165,233, 0)" />
           </radialGradient>
-          <filter id="glow">
+
+          <filter id="softGlow">
             <feGaussianBlur stdDeviation="3" result="b" />
-            <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
           </filter>
+
+          <linearGradient id="axon">
+            <stop offset="0%" stopColor="rgba(56,189,248,.6)" />
+            <stop offset="100%" stopColor="rgba(186,230,253,.1)" />
+          </linearGradient>
         </defs>
 
-        {neurons.map((a, i) =>
-          neurons.slice(i + 1).map((b, j) => {
-            const d = Math.hypot(b.x - a.x, b.y - a.y);
-            return d < 40 ? (
-              <line
-                key={`${i}-${j}`}
-                x1={`${a.x}%`} y1={`${a.y}%`} x2={`${b.x}%`} y2={`${b.y}%`}
-                stroke="rgba(0,167,225,.2)" strokeWidth="1"
-                style={{ animation: `pulse ${2 + Math.random()}s ease-in-out infinite`, animationDelay: `${a.delay}s` }}
+        {/* axones/dendritas curvos */}
+        {neurons.map((n) =>
+          n.dendrites.map((d, j) => {
+            const r = n.soma / 2 / 10; // escala para evitar cortar el soma
+            const x1 = n.x;
+            const y1 = n.y;
+            // endpoint a partir de ángulo/longitud
+            const ex = x1 + (Math.cos(d.angle) * d.len) / 1.3;
+            const ey = y1 + (Math.sin(d.angle) * d.len) / 1.3;
+            // control points para curva (curl = “ondita”)
+            const cx1 = x1 + Math.cos(d.angle - Math.PI / 2) * d.len * d.curl * 0.25;
+            const cy1 = y1 + Math.sin(d.angle - Math.PI / 2) * d.len * d.curl * 0.25;
+            const cx2 = x1 + Math.cos(d.angle + Math.PI / 2) * d.len * d.curl * 0.25;
+            const cy2 = y1 + Math.sin(d.angle + Math.PI / 2) * d.len * d.curl * 0.25;
+
+            return (
+              <path
+                key={`${n.id}-${j}`}
+                d={`M ${x1}% ${y1}% C ${cx1}% ${cy1}%, ${cx2}% ${cy2}%, ${ex}% ${ey}%`}
+                stroke="url(#axon)"
+                strokeWidth={1.4}
+                fill="none"
+                style={{
+                  opacity: 0.55,
+                  filter: "url(#softGlow)",
+                  animation: `twinkle ${2 + (j % 3)}s ease-in-out ${n.delay}s infinite`,
+                }}
               />
-            ) : null;
+            );
           })
         )}
 
+        {/* somas con glow */}
         {neurons.map((n) => (
-          <g key={n.id}>
-            <circle cx={`${n.x}%`} cy={`${n.y}%`} r={n.size / 2} fill="url(#neuronGlow)" filter="url(#glow)"
-              style={{ animation: `breathe ${n.duration}s ease-in-out infinite`, animationDelay: `${n.delay}s` }} />
-            <circle cx={`${n.x}%`} cy={`${n.y}%`} r={n.size / 4} fill="rgba(56,189,248,.6)" />
+          <g key={n.id} filter="url(#softGlow)">
+            <circle
+              cx={`${n.x}%`}
+              cy={`${n.y}%`}
+              r={n.soma / 2}
+              fill="url(#soma)"
+              style={{
+                animation: `breathe ${n.duration}s ease-in-out ${n.delay}s infinite`,
+              }}
+            />
+            <circle
+              cx={`${n.x}%`}
+              cy={`${n.y}%`}
+              r={Math.max(2, n.soma / 10)}
+              fill="rgba(186,230,253,.85)"
+            />
           </g>
         ))}
       </svg>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-20 text-center">
-        <div className="space-y-8 max-w-5xl">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-cyan-300 to-sky-200 animate-pulse">
-              Neurogold
-            </span>
-            <br />
-            <span className="text-slate-100">Training</span>
-          </h1>
+      {/* contenido */}
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 py-16 text-center">
+        <h1 className="mb-2 text-5xl font-extrabold tracking-tight text-sky-100 md:text-6xl">
+          Neurogold
+        </h1>
+        <h2 className="mb-6 text-4xl font-extrabold tracking-tight text-sky-200/90 md:text-5xl">
+          Generative Hero
+        </h2>
+        <p className="mx-auto mb-6 max-w-2xl text-lg text-sky-100/80">{t.subtitle}</p>
 
-          <p className="text-xl md:text-2xl text-sky-200/80 font-light max-w-3xl mx-auto leading-relaxed">
-            {content.subtitle}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <button
-              onClick={() => document.getElementById("email-capture")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative px-8 py-4 bg-gradient-to-r from-sky-600 to-cyan-600 rounded-xl font-semibold text-white shadow-lg shadow-sky-500/50 hover:shadow-sky-500/70 transition-all duration-300 hover:scale-105"
+        <div className="mb-6 flex flex-wrap justify-center gap-3">
+          {t.tags.map((tag, i) => (
+            <span
+              key={i}
+              className="rounded-full border border-sky-400/20 bg-sky-900/30 px-3 py-1 text-sm text-sky-100/90 backdrop-blur"
             >
-              <span className="relative z-10">{content.cta}</span>
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-sky-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
-            </button>
-          </div>
-
-          <div className="flex flex-wrap gap-3 justify-center pt-8">
-            {content.tags.map((tag, i) => (
-              <span key={i}
-                className="px-4 py-2 bg-sky-900/30 backdrop-blur-sm border border-sky-500/20 rounded-full text-sm text-sky-200 hover:bg-sky-900/50 hover:border-sky-500/40 transition-all">
-                {tag}
-              </span>
-            ))}
-          </div>
+              • {tag}
+            </span>
+          ))}
         </div>
 
-        {/* dummy anchor for smooth scroll in preview */}
-        <div id="email-capture" className="absolute bottom-6" />
+        <a
+          href="#lead"
+          className="group relative inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 px-6 py-3 font-semibold text-white shadow-lg shadow-sky-500/40"
+        >
+          <span className="relative z-10">{t.cta}</span>
+          <span className="absolute inset-0 -z-0 rounded-xl bg-cyan-400/30 opacity-0 blur-lg transition-opacity group-hover:opacity-100" />
+        </a>
       </div>
 
       <style jsx>{`
-        @keyframes breathe { 0%,100%{opacity:.4;filter:brightness(.8)} 50%{opacity:1;filter:brightness(1.3)} }
-        @keyframes pulse { 0%,100%{opacity:.2} 50%{opacity:.6} }
+        @keyframes breathe {
+          0%,
+          100% {
+            opacity: 0.55;
+            filter: brightness(0.9);
+          }
+          50% {
+            opacity: 1;
+            filter: brightness(1.25);
+          }
+        }
+        @keyframes twinkle {
+          0%,
+          100% {
+            opacity: 0.25;
+          }
+          50% {
+            opacity: 0.65;
+          }
+        }
       `}</style>
     </div>
   );
