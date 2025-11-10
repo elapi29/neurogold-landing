@@ -1,6 +1,6 @@
-import type { Locale } from "../../../../../lib/i18n";
-import NeurogoldHeroSkyStatic from "../../../../../components/NeurogoldHeroSkyStatic";
-import Allies from "../../../../../components/Allies";
+import type { Locale } from "../../../../lib/i18n";
+import NeurogoldHeroSkyStatic from "../../../../components/NeurogoldHeroSkyStatic";
+import Allies from "../../../../components/Allies";
 
 export default function Page({ params: { locale } }: { params: { locale: Locale } }) {
   return (
