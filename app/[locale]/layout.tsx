@@ -1,10 +1,8 @@
+// app/[locale]/layout.tsx
 import type { ReactNode } from "react";
+import TopBar from "../../components/TopBar";
 
 export const dynamic = "error";
-
-export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://elapi29.github.io/neurogold-landing"),
-};
 
 export default function LocaleLayout({
   children,
@@ -16,8 +14,8 @@ export default function LocaleLayout({
   return (
     <html lang={locale}>
       <body className="min-h-dvh bg-white">
-        {/* TopBar viene desde app/layout.tsx */}
-        <div className="pt-0">{children}</div>
+        <TopBar locale={locale} />
+        <div className="pt-20">{children}</div>
       </body>
     </html>
   );

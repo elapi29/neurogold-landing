@@ -29,9 +29,10 @@ jobs:
       - name: Build static site
         env:
           NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
-          NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"  # -> "/neurogold-landing"
-          NEXT_PUBLIC_SITE_URL: "https://elapi29.github.io/${{ github.event.repository.name }}"  # URL absoluta para OG/Twitter
+          NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"
+          NEXT_PUBLIC_SITE_URL: "https://elapi29.github.io/${{ github.event.repository.name }}"
         run: npm run build
+
 
 
       - name: Upload artifact
