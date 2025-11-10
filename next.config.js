@@ -1,12 +1,15 @@
 /** @type {import('next').NextConfig} */
-const raw = process.env.NEXT_PUBLIC_BASE_PATH || ""; // ej: "/neurogold-landing" o ""
-const base = raw ? "/" + raw.replace(/^\/+/, "").replace(/\/+$/, "") : "";
+const repo = process.env.NEXT_PUBLIC_BASE_PATH || ""; // p.ej. "/neurogold-landing"
 
 module.exports = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
-  basePath: base || undefined,
-  assetPrefix: base ? `${base}/` : undefined, // importante la barra final
+  basePath: repo || undefined,
+  assetPrefix: repo || undefined,
   reactStrictMode: true,
+  env: {
+    // espejo para clientes (<img>, next/image, links absolutos)
+    NEXT_PUBLIC_BASE_PATH: repo || "",
+  },
 };
