@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import TopBar from "../components/TopBar";
 
 export const metadata: Metadata = {
-  // URL base absoluta para OG/Twitter/canonical
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://elapi29.github.io/neurogold-landing"),
-
   title: {
     default: "Neurogold Training — BCI & Neurofeedback",
     template: "%s | Neurogold Training",
@@ -33,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Neurogold Training",
-    "url": "https://elapi29.github.io/neurogold-landing/",
+    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://elapi29.github.io/neurogold-landing/",
     "logo": "/og.png",
     "description": "Rendimiento sustentable con neurociencia aplicada."
   };
@@ -41,8 +40,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body className="min-h-dvh">
-        {/* TopBar se renderiza en app/[locale]/layout.tsx */}
-        <div className="pt-0">
+        <TopBar locale="es" />
+        <div className="pt-16">
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
           {children}
         </div>
