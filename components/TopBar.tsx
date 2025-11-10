@@ -1,42 +1,42 @@
+// components/TopBar.tsx
 "use client";
-import Image from "next/image";
+
 import Link from "next/link";
+import Image from "next/image";
 
 export default function TopBar({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
+  const nav = [
+    { href: `/${locale}`, label: locale === "de" ? "Start" : locale === "en" ? "Home" : "Inicio" },
+    { href: `/${locale}#lead`, label: locale === "de" ? "Kontakt" : locale === "en" ? "Contact" : "Contacto" },
+  ];
+
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/5 shadow-sm">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="mt-3 rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-md shadow-sm shadow-black/20">
           <div className="flex items-center justify-between px-4 py-2">
-            {/* Brand */}
             <Link href={`/${locale}`} className="flex items-center gap-3">
-              <div className="relative h-8 w-[110px] md:h-9 md:w-[140px]">
-                {/* Tu PNG exacto */}
-                <Image
-                  src="/partners/NDAAWordmark.png"
-                  alt="ND°AA — Neurociencias Deportivas Argentinas"
-                  fill
-                  sizes="(max-width: 768px) 110px, 140px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              <span className="hidden sm:block text-sm font-medium text-white/80">
+              <Image
+                src="/partners/NDAAWordmark.png"
+                alt="ND·AA"
+                width={120}
+                height={28}
+                priority
+                className="h-7 w-auto"
+              />
+              <span className="hidden sm:block text-slate-100/90 font-medium tracking-tight">
                 Neurogold Training
               </span>
             </Link>
 
-            {/* Idiomas simples (si ya tienes i18n, puedes mantener esto o quitarlo) */}
-            <nav className="flex items-center gap-2 text-xs">
-              {["es", "en", "de"].map((l) => (
+            <nav className="flex items-center gap-4">
+              {nav.map((i) => (
                 <Link
-                  key={l}
-                  href={`/${l}`}
-                  className={`rounded-md px-2 py-1 ${
-                    l === locale ? "bg-white/10 text-white" : "text-white/70 hover:text-white"
-                  }`}
+                  key={i.href}
+                  href={i.href}
+                  className="text-slate-200/80 hover:text-white text-sm font-medium"
                 >
-                  {l.toUpperCase()}
+                  {i.label}
                 </Link>
               ))}
             </nav>

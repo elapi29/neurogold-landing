@@ -1,53 +1,63 @@
+// components/Allies.tsx
 import Image from "next/image";
 
 export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
+  const title =
+    locale === "de" ? "Partner" : locale === "en" ? "Allies" : "Aliados";
+
   return (
     <section className="mx-auto max-w-6xl px-4">
-      <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Aliados</h2>
+      <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900 mb-6">
+        {title}
+      </h2>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {/* neurocare APOLLO */}
-        <div className="rounded-2xl border p-6 shadow-sm bg-white/70">
-          <div className="relative mx-auto h-10 w-[180px]">
+      <div className="grid gap-6 md:grid-cols-2">
+        {/* Neurocare APOLLO */}
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+          <div className="flex items-center justify-center">
             <Image
               src="/partners/neurocare.webp"
               alt="neurocare APOLLO"
-              fill
-              className="object-contain"
-              sizes="180px"
+              width={220}
+              height={56}
+              sizes="220px"
+              className="h-14 w-auto object-contain"
+              priority
             />
           </div>
         </div>
 
         {/* g.tec BCI */}
-        <div className="rounded-2xl border p-6 shadow-sm bg-white/70">
-          <div className="relative mx-auto h-10 w-[180px]">
+        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+          <div className="flex items-center justify-center">
             <Image
               src="/partners/gtec.svg"
               alt="g.tec BCI"
-              fill
-              className="object-contain"
-              sizes="180px"
-            />
-          </div>
-        </div>
-
-        {/* ND°AA */}
-        <div className="rounded-2xl border p-6 shadow-sm bg-white/70">
-          <div className="relative mx-auto h-10 w-[200px]">
-            <Image
-              src="/partners/NDAAWordmark.png"
-              alt="ND°AA — Neurociencias Deportivas Argentinas"
-              fill
-              className="object-contain"
-              sizes="200px"
+              width={220}
+              height={56}
+              sizes="220px"
+              className="h-14 w-auto object-contain"
+              priority
             />
           </div>
         </div>
       </div>
 
-      <p className="mt-4 text-center text-sm text-slate-500">
-        Activos en <code>/public/partners/</code> (neurocare.webp, gtec.svg, NDAAWordmark.png).
+      <div className="mt-8 flex items-center justify-center">
+        <Image
+          src="/partners/NDAAWordmark.png"
+          alt="ND·AA — Neurociencias Deportivas Argentinas"
+          width={380}
+          height={120}
+          sizes="380px"
+          className="h-auto w-auto object-contain"
+          priority
+        />
+      </div>
+
+      <p className="mt-3 text-center text-sm text-slate-500">
+        Activos en <code>/public/partners/</code> (<code>neurocare.webp</code>,{" "}
+        <code>gtec.svg</code> y <code>NDAAWordmark.png</code>).
       </p>
     </section>
   );

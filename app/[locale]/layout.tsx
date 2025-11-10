@@ -1,21 +1,22 @@
-import "../globals.css";
+// app/[locale]/layout.tsx
+import type { ReactNode } from "react";
 import TopBar from "../../components/TopBar";
-import type { Locale } from "../../lib/i18n";
 
-export const dynamic = "error"; // export estático
+export const dynamic = "error";
 
 export default function LocaleLayout({
   children,
   params: { locale },
 }: {
-  children: React.ReactNode;
-  params: { locale: Locale };
+  children: ReactNode;
+  params: { locale: "es" | "en" | "de" };
 }) {
   return (
     <html lang={locale}>
-      <body className="min-h-dvh">
+      <body className="min-h-dvh bg-white">
         <TopBar locale={locale} />
-        <div className="pt-16">{children}</div>
+        {/* padding-top para no quedar debajo del topbar fijo */}
+        <div className="pt-20">{children}</div>
       </body>
     </html>
   );
