@@ -19,10 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+            node-version: 18
 
       - name: Install deps
         run: npm install --no-audit --no-fund
@@ -30,7 +29,7 @@ jobs:
       - name: Build static site
         env:
           NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
-          NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"
+          NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"  # -> "/neurogold-landing"
         run: npm run build
 
       - name: Upload artifact

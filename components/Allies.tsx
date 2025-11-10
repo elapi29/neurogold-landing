@@ -2,8 +2,7 @@
 import Image from "next/image";
 
 export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
-  const title =
-    locale === "de" ? "Partner" : locale === "en" ? "Allies" : "Aliados";
+  const title = locale === "de" ? "Partner" : locale === "en" ? "Allies" : "Aliados";
 
   return (
     <section className="mx-auto max-w-6xl px-4">
@@ -12,7 +11,7 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
       </h2>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Neurocare APOLLO */}
+        {/* neurocare APOLLO */}
         <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
           <div className="flex items-center justify-center">
             <Image
@@ -56,8 +55,8 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
       </div>
 
       <p className="mt-3 text-center text-sm text-slate-500">
-        Activos en <code>/public/partners/</code> (<code>neurocare.webp</code>,{" "}
-        <code>gtec.svg</code> y <code>NDAAWordmark.png</code>).
+        Activos en <code>/public/partners/</code> (<code>neurocare.webp</code>, <code>gtec.svg</code> y{" "}
+        <code>NDAAWordmark.png</code>).
       </p>
     </section>
   );
