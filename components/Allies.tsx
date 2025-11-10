@@ -1,4 +1,4 @@
-/import Image from "next/image";
+import Image from "next/image";
 const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" o "/neurogold-landing"
 
 export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
