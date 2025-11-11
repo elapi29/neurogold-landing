@@ -54,9 +54,6 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
         />
       </div>
 
-      <p className="mt-3 text-center text-sm text-slate-500">
-        Activos en <code>/public/partners/</code> (<code>neurocare.webp</code>, <code>gtec.svg</code> y <code>NDAAWordmark.png</code>).
-      </p>
     </section>
   );
 }
