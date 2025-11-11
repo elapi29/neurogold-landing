@@ -1,40 +1,44 @@
+// components/NeuroPerformance.tsx
 import Image from "next/image";
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export default function NeuroPerformance({ locale = "es" }: { locale?: "es" | "en" | "de" }) {
-  const copy = {
-    es: {
-      title: "Del entrenamiento mental al rendimiento medible",
-      text: "Cadena completa: práctica guiada de Imaginería Motora (MI), mejora de rendimiento, neuromodulación (BCI + rTMS) y prevención de lesiones.",
-      alt: "MI guiada, mejora de rendimiento, neuromodulación y prevención de lesiones"
-    },
-    en: {
-      title: "From mental practice to measurable performance",
-      text: "Full chain: guided Motor Imagery (MI), performance improvement, neuromodulation (BCI + rTMS), and injury prevention.",
-      alt: "Guided MI, performance improvement, neuromodulation and injury prevention"
-    },
-    de: {
-      title: "Von mentalem Training zur messbaren Leistung",
-      text: "Komplette Kette: geführte Motor Imagery (MI), Leistungssteigerung, Neuromodulation (BCI + rTMS) und Verletzungsprävention.",
-      alt: "Geführte MI, Leistungssteigerung, Neuromodulation und Verletzungsprävention"
-    }
-  }[locale];
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" (local) o "/neurogold-landing" (Pages)
 
+export default function NeuroPerformance() {
   return (
-    <section className="mx-auto max-w-6xl px-4 space-y-4">
-      <h2 className="text-2xl font-bold">{copy.title}</h2>
-      <p className="text-slate-700">{copy.text}</p>
+    <section className="mx-auto max-w-6xl px-4">
+      <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900 mb-6">
+        Neuro-performance
+      </h2>
 
-      <div className="rounded-2xl overflow-hidden border shadow-sm bg-black">
-        <Image
-          src={`${prefix}/pipeline/neuro-performance.jpg`}
-          alt={copy.alt}
-          width={1600}
-          height={1600}
-          className="w-full h-auto object-cover"
-          priority={false}
-        />
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+          <Image
+            src={`${prefix}/pipeline/neuro-performance.jpg`}
+            alt="Pipeline neuro-performance"
+            width={1600}
+            height={1600}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="w-full h-auto object-cover"
+            priority
+          />
+        </div>
+
+        <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+          <Image
+            src={`${prefix}/pipeline/salida-freno.png`}
+            alt="Entrenamiento mental guiado: salida y freno"
+            width={1600}
+            height={1200}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="w-full h-auto object-cover bg-white"
+            priority
+          />
+        </div>
       </div>
+
+      <p className="mt-4 text-center text-sm text-slate-500">
+        Imágenes servidas desde <code>/public/pipeline/</code>.
+      </p>
     </section>
   );
 }

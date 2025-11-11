@@ -25,6 +25,9 @@ export default function Page({
         <EmailCapture />
       </section>
 
+      {/* NUEVA sección con imágenes/pipeline */}
+      <NeuroPerformance />
+
       {/* Cómo funciona */}
       <section>
         <h2 className="mb-3 text-2xl font-bold">{t.how.title}</h2>
