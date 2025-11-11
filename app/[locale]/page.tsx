@@ -2,6 +2,7 @@ import { dict, type Locale } from "../../lib/i18n";
 import EmailCapture from "../../components/EmailCapture";
 import NeurogoldHeroSkyStatic from "../../components/NeurogoldHeroSkyStatic";
 import Allies from "../../components/Allies";
+import NeuroPerformance from "../../components/NeuroPerformance"; // ⬅️ IMPORT NECESARIO
 
 export default function Page({
   params: { locale },
@@ -16,6 +17,9 @@ export default function Page({
       <NeurogoldHeroSkyStatic locale={locale} />
       <Allies locale={locale} />
 
+      {/* NUEVA sección con imágenes/pipeline */}
+      <NeuroPerformance />
+
       {/* Bloque de texto + formulario */}
       <section>
         <h1 className="mb-4 text-5xl font-extrabold tracking-tight">
@@ -24,9 +28,6 @@ export default function Page({
         <p className="mb-6 text-lg text-slate-600">{t.hero.subtitle}</p>
         <EmailCapture />
       </section>
-
-      {/* NUEVA sección con imágenes/pipeline */}
-      <NeuroPerformance />
 
       {/* Cómo funciona */}
       <section>
