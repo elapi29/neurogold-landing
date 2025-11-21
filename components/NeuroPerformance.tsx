@@ -1,7 +1,7 @@
 // components/NeuroPerformance.tsx
 import Image from "next/image";
-// ✅ import estático desde /public: Next maneja basePath/assetPrefix solo
-import Collage from "@/public/pipeline/neuro-performance.jpg";
+
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" en local, "/neurogold-landing" en Pages
 
 export default function NeuroPerformance() {
   return (
@@ -10,47 +10,50 @@ export default function NeuroPerformance() {
         Rehabilitación · Prevención de lesiones · Práctica mental
       </h2>
 
-      {/* Collage visual */}
+      {/* Imagen principal (solo la cuadri-viñeta) */}
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="relative w-full">
-          <Image
-            src={Collage}
-            alt="Rehabilitación, prevención de lesiones y práctica mental — Neurogold"
-            priority
-            className="h-auto w-full object-cover"
-          />
-        </div>
+        <Image
+          src={`${prefix}/pipeline/neuro-performance.jpg`}
+          alt="Rehabilitación, prevención de lesiones y práctica mental — Neurogold"
+          width={1920}
+          height={1920}
+          sizes="(max-width: 768px) 100vw, 1024px"
+          className="w-full h-auto object-cover"
+          priority
+        />
       </div>
 
-      {/* Texto descriptivo (separado de la imagen) */}
+      {/* Texto explicado (separado de la imagen) */}
       <div className="mt-8 grid gap-6 md:grid-cols-3">
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="rounded-xl border bg-white/60 p-5">
           <h3 className="font-semibold mb-2">🩺 Rehabilitación</h3>
-          <ul className="text-slate-700 space-y-1">
-            <li>Volver bien, no “a medias”: jugar al 100 %, no sólo sin dolor.</li>
-            <li>Recuperación con datos: EEG, fuerza, EMG, reacción.</li>
-            <li>Además del músculo, entrenamos timing, foco y decisiones.</li>
+          <ul className="space-y-1 text-slate-700">
+            <li>Volver bien, no “a medias”: 100 %, no sólo sin dolor.</li>
+            <li>EEG, fuerza, EMG y reacción para saber cuándo estás listo.</li>
+            <li>Mientras se cuida el músculo, entrenamos timing, foco y decisiones.</li>
           </ul>
         </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="rounded-xl border bg-white/60 p-5">
           <h3 className="font-semibold mb-2">🛡️ Prevención de lesiones</h3>
-          <ul className="text-slate-700 space-y-1">
+          <ul className="space-y-1 text-slate-700">
             <li>No es “no lesionarse”: es menos lesiones.</li>
-            <li>Alertas tempranas: fatiga, asimetrías, cambios de fuerza/reacción.</li>
+            <li>Alertas tempranas: fatiga, asimetrías, cambios en fuerza y reacción.</li>
             <li>Mejor control al acelerar, frenar y cambiar de dirección.</li>
           </ul>
         </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="rounded-xl border bg-white/60 p-5">
           <h3 className="font-semibold mb-2">🧠 Práctica mental</h3>
-          <ul className="text-slate-700 space-y-1">
+          <ul className="space-y-1 text-slate-700">
             <li>Entrenar la cabeza = entrenar el segundo que define el partido.</li>
-            <li>Simulaciones de juego: decisión rápida, foco y calma bajo presión.</li>
-            <li>Ideal con carga física: el cuerpo descansa y el cerebro mejora.</li>
+            <li>Simulamos situaciones de juego: decisión rápida, foco y calma.</li>
+            <li>Ideal con el cuerpo cargado: el cerebro sigue mejorando.</li>
           </ul>
         </div>
       </div>
+
+      <p className="mt-4 text-center text-sm text-slate-500">
+        (Imágenes desde <code>/public/pipeline/</code> · archivo: <code>neuro-performance.jpg</code>)
+      </p>
     </section>
   );
 }
