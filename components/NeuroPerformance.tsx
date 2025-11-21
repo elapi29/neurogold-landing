@@ -1,7 +1,7 @@
 // components/NeuroPerformance.tsx
 import Image from "next/image";
 
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" en local, "/neurogold-landing" en Pages
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" local, "/neurogold-landing" en Pages
 
 export default function NeuroPerformance() {
   return (
@@ -10,20 +10,18 @@ export default function NeuroPerformance() {
         Rehabilitación · Prevención de lesiones · Práctica mental
       </h2>
 
-      {/* Imagen principal (solo la cuadri-viñeta) */}
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <Image
           src={`${prefix}/pipeline/neuro-performance.jpg`}
           alt="Rehabilitación, prevención de lesiones y práctica mental — Neurogold"
           width={1920}
           height={1920}
-          sizes="(max-width: 768px) 100vw, 1024px"
           className="w-full h-auto object-cover"
           priority
+          unoptimized
         />
       </div>
 
-      {/* Texto explicado (separado de la imagen) */}
       <div className="mt-8 grid gap-6 md:grid-cols-3">
         <div className="rounded-xl border bg-white/60 p-5">
           <h3 className="font-semibold mb-2">🩺 Rehabilitación</h3>
