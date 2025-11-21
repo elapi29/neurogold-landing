@@ -3,7 +3,6 @@ import EmailCapture from "../../components/EmailCapture";
 import NeurogoldHeroSkyStatic from "../../components/NeurogoldHeroSkyStatic";
 import Allies from "../../components/Allies";
 import NeuroPerformance from "../../components/NeuroPerformance";
-import PlayerExplainer from "../../components/PlayerExplainer";
 
 export default function Page({
   params: { locale },
@@ -14,15 +13,14 @@ export default function Page({
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-20 space-y-16">
-      {/* Hero visual (cyan) + aliados */}
+      {/* Hero visual (cyan) */}
       <NeurogoldHeroSkyStatic locale={locale} />
+
+      {/* Aliados */}
       <Allies locale={locale} />
 
-      {/* Texto para jugadores */}
-      <PlayerExplainer locale={locale} />
-
-      {/* Imágenes / pipeline (flyer) */}
-      <NeuroPerformance locale={locale} />
+      {/* Imágenes / pipeline (flyer & pipeline) */}
+      <NeuroPerformance />
 
       {/* Bloque de texto + formulario */}
       <section>
@@ -52,9 +50,6 @@ export default function Page({
           ))}
         </ul>
       </section>
-
-      {/* (opcional) segundo flyer si querés duplicarlo más abajo */}
-      {/* <NeuroPerformance locale={locale} /> */}
 
       {/* KPIs */}
       <section>
