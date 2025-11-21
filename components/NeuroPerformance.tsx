@@ -1,7 +1,7 @@
 // components/NeuroPerformance.tsx
 import Image from "next/image";
-
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" (local) o "/neurogold-landing"
+// ✅ import estático desde /public: Next maneja basePath/assetPrefix solo
+import Collage from "@/public/pipeline/neuro-performance.jpg";
 
 export default function NeuroPerformance() {
   return (
@@ -14,10 +14,8 @@ export default function NeuroPerformance() {
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="relative w-full">
           <Image
-            src={`${prefix}/pipeline/neuro-performance.jpg`}
+            src={Collage}
             alt="Rehabilitación, prevención de lesiones y práctica mental — Neurogold"
-            width={1600}
-            height={1600}
             priority
             className="h-auto w-full object-cover"
           />
@@ -29,9 +27,9 @@ export default function NeuroPerformance() {
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h3 className="font-semibold mb-2">🩺 Rehabilitación</h3>
           <ul className="text-slate-700 space-y-1">
-            <li>Volver bien, no “a medias”: objetivo = jugar al 100 %, no sólo sin dolor.</li>
-            <li>Recuperación con datos: EEG, fuerza, EMG, reacción para saber cuándo estás listo.</li>
-            <li>Mientras se cuida el músculo, también entrenamos timing, foco y decisiones.</li>
+            <li>Volver bien, no “a medias”: jugar al 100 %, no sólo sin dolor.</li>
+            <li>Recuperación con datos: EEG, fuerza, EMG, reacción.</li>
+            <li>Además del músculo, entrenamos timing, foco y decisiones.</li>
           </ul>
         </div>
 
@@ -39,8 +37,8 @@ export default function NeuroPerformance() {
           <h3 className="font-semibold mb-2">🛡️ Prevención de lesiones</h3>
           <ul className="text-slate-700 space-y-1">
             <li>No es “no lesionarse”: es menos lesiones.</li>
-            <li>Alertas tempranas: fatiga, asimetrías, cambios en fuerza y reacción.</li>
-            <li>Mejor control para acelerar, frenar y cambiar de dirección.</li>
+            <li>Alertas tempranas: fatiga, asimetrías, cambios de fuerza/reacción.</li>
+            <li>Mejor control al acelerar, frenar y cambiar de dirección.</li>
           </ul>
         </div>
 
@@ -49,7 +47,7 @@ export default function NeuroPerformance() {
           <ul className="text-slate-700 space-y-1">
             <li>Entrenar la cabeza = entrenar el segundo que define el partido.</li>
             <li>Simulaciones de juego: decisión rápida, foco y calma bajo presión.</li>
-            <li>Ideal cuando el cuerpo está cargado: el cuerpo descansa y el cerebro sigue mejorando.</li>
+            <li>Ideal con carga física: el cuerpo descansa y el cerebro mejora.</li>
           </ul>
         </div>
       </div>
