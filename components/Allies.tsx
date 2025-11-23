@@ -43,14 +43,12 @@ export default function Allies({ locale = "es" }: { locale?: "es" | "en" | "de" 
       </div>
 
       <div className="mt-8 flex items-center justify-center">
-        <Image
-          src={`${prefix}/partners/NDAAWordmark.png`}
+        <img
+          src={(process.env.NEXT_PUBLIC_BASE_PATH || "") + "/partners/NDAAWordmark.png"}
           alt="ND·AA — Neurociencias Deportivas Argentinas"
-          width={380}
-          height={120}
-          sizes="380px"
-          className="h-auto w-auto object-contain"
-          priority
+          className="h-10 md:h-12 w-auto object-contain"
+          loading="eager"
+          decoding="async"
         />
       </div>
 

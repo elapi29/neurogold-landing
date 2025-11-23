@@ -1,3 +1,4 @@
+// lib/i18n.ts
 export type Locale = 'es' | 'en' | 'de';
 
 type Dict = {
@@ -7,7 +8,13 @@ type Dict = {
   kpi: { title: string; bullets: string[]; note: string };
   pricing: { title: string; items: { name: string; desc: string; cta: string }[]; foot?: string };
   faq: { title: string; qa: { q: string; a: string }[] };
-}
+  players: {
+    title: string;
+    rehab: { title: string; bullets: string[] };
+    prevent: { title: string; bullets: string[] };
+    mental: { title: string; bullets: string[] };
+  };
+};
 
 const messages: Record<Locale, Dict> = {
   es: {
@@ -61,6 +68,33 @@ const messages: Record<Locale, Dict> = {
         { q: "¿Impacta la agenda?", a: "Sí, es compatible: sesiones breves y sin tiempos de baja." },
         { q: "¿Privacidad de datos?", a: "Datos protegidos y uso restringido al objetivo del programa." }
       ]
+    },
+    players: {
+      title: "Rehabilitación · Prevención de lesiones · Práctica mental",
+      rehab: {
+        title: "🩺 Rehabilitación",
+        bullets: [
+          "Volver bien, no “a medias”: objetivo = jugar al 100 %, no sólo sin dolor.",
+          "Recuperación con datos: EEG, fuerza, EMG, reacción para saber cuándo estás listo.",
+          "Mientras se cuida el músculo, también entrenamos timing, foco y decisiones."
+        ]
+      },
+      prevent: {
+        title: "🛡️ Prevención de lesiones",
+        bullets: [
+          "No es “no lesionarse”: es menos lesiones.",
+          "Vemos alertas tempranas: fatiga, asimetrías, cambios en fuerza y reacción.",
+          "Mejor control al acelerar, frenar y cambiar de dirección."
+        ]
+      },
+      mental: {
+        title: "🧠 Práctica mental",
+        bullets: [
+          "Entrenar la cabeza = entrenar el segundo que define el partido.",
+          "Simulamos situaciones de juego: decisión rápida, foco, calma bajo presión.",
+          "Ideal cuando el cuerpo está cargado: el cuerpo descansa, el cerebro sigue mejorando."
+        ]
+      }
     }
   },
 
@@ -115,6 +149,33 @@ const messages: Record<Locale, Dict> = {
         { q: "Schedule friendly?", a: "Yes — short sessions, no downtime." },
         { q: "Data privacy?", a: "Protected data, used only for program goals." }
       ]
+    },
+    players: {
+      title: "Rehabilitation · Injury prevention · Mental practice",
+      rehab: {
+        title: "🩺 Rehabilitation",
+        bullets: [
+          "Come back fully, not “halfway”: aim to play at 100 %, not just pain-free.",
+          "Data-driven recovery: EEG, strength, EMG, reaction to know when you’re ready.",
+          "While the muscle heals, we also train timing, focus and decision-making."
+        ]
+      },
+      prevent: {
+        title: "🛡️ Injury prevention",
+        bullets: [
+          "It’s not “no injuries”: it’s fewer and milder injuries.",
+          "Early alerts: fatigue, asymmetries, changes in strength and reaction.",
+          "Better control when accelerating, braking and changing direction."
+        ]
+      },
+      mental: {
+        title: "🧠 Mental practice",
+        bullets: [
+          "Training the head = training the decisive second.",
+          "We simulate game situations: fast decisions, focus, calm under pressure.",
+          "Ideal when the body is loaded: the body rests, the brain keeps improving."
+        ]
+      }
     }
   },
 
@@ -169,6 +230,33 @@ const messages: Record<Locale, Dict> = {
         { q: "Kalender-freundlich?", a: "Ja — kurze Sessions, keine Ausfallzeiten." },
         { q: "Datenschutz?", a: "Geschützte Daten, Nutzung nur für Programmziele." }
       ]
+    },
+    players: {
+      title: "Rehabilitation · Verletzungsprävention · Mentales Training",
+      rehab: {
+        title: "🩺 Rehabilitation",
+        bullets: [
+          "Vollständig zurückkommen, nicht „halb“: Ziel = 100 %, nicht nur schmerzfrei.",
+          "Datenbasierte Rückkehr: EEG, Kraft, EMG, Reaktion — wissen, wann du bereit bist.",
+          "Während der Muskel heilt, trainieren wir Timing, Fokus und Entscheidungen."
+        ]
+      },
+      prevent: {
+        title: "🛡️ Verletzungsprävention",
+        bullets: [
+          "Nicht „keine Verletzungen“: weniger und mildere Verletzungen.",
+          "Frühwarnungen: Fatigue, Asymmetrien, Veränderungen in Kraft und Reaktion.",
+          "Besseres Handling bei Beschleunigen, Bremsen und Richtungswechsel."
+        ]
+      },
+      mental: {
+        title: "🧠 Mentales Training",
+        bullets: [
+          "Den Kopf trainieren = die entscheidende Sekunde trainieren.",
+          "Wir simulieren Spielsituationen: schnelle Entscheidung, Fokus, Ruhe unter Druck.",
+          "Ideal bei hoher körperlicher Belastung: Körper ruht, Gehirn verbessert weiter."
+        ]
+      }
     }
   }
 };
