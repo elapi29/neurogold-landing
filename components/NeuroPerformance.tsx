@@ -1,7 +1,8 @@
 // components/NeuroPerformance.tsx
+// components/NeuroPerformance.tsx
 import Image from "next/image";
-
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ""; // "" local, "/neurogold-landing" en Pages
+// ✅ IMPORT ESTÁTICO: Next empaqueta en /_next/static/media y respeta basePath
+import Collage from "../public/pipeline/neuro-performance.jpg";
 
 export default function NeuroPerformance() {
   return (
@@ -10,18 +11,17 @@ export default function NeuroPerformance() {
         Rehabilitación · Prevención de lesiones · Práctica mental
       </h2>
 
+      {/* Collage visual */}
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <Image
-          src={`${prefix}/pipeline/neuro-performance.jpg`}
+          src={Collage}
           alt="Rehabilitación, prevención de lesiones y práctica mental — Neurogold"
-          width={1920}
-          height={1920}
-          className="w-full h-auto object-cover"
           priority
-          unoptimized
+          className="w-full h-auto object-cover"
         />
       </div>
 
+      {/* Texto explicado (separado de la imagen) */}
       <div className="mt-8 grid gap-6 md:grid-cols-3">
         <div className="rounded-xl border bg-white/60 p-5">
           <h3 className="font-semibold mb-2">🩺 Rehabilitación</h3>
@@ -48,10 +48,6 @@ export default function NeuroPerformance() {
           </ul>
         </div>
       </div>
-
-      <p className="mt-4 text-center text-sm text-slate-500">
-        (Imágenes desde <code>/public/pipeline/</code> · archivo: <code>neuro-performance.jpg</code>)
-      </p>
     </section>
   );
 }
