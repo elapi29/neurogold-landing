@@ -3,6 +3,9 @@ import EmailCapture from "../../components/EmailCapture";
 import NeurogoldHeroSkyStatic from "../../components/NeurogoldHeroSkyStatic";
 import Allies from "../../components/Allies";
 
+// respeta GitHub Pages con basePath como "/neurogold-landing"
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Page({
   params: { locale },
 }: {
@@ -15,6 +18,18 @@ export default function Page({
       {/* Hero visual (cyan) + aliados */}
       <NeurogoldHeroSkyStatic locale={locale} />
       <Allies locale={locale} />
+
+      {/* Imagen /pipeline/neuro-performance.jpg servida con <img> y basePath */}
+      <section className="mx-auto w-full">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <img
+            src={`${prefix}/pipeline/neuro-performance.jpg`}
+            alt="Rehabilitación, prevención de lesiones y práctica mental — Neurogold"
+            className="w-full h-auto object-cover"
+            loading="eager"
+          />
+        </div>
+      </section>
 
       {/* Bloque de texto + formulario */}
       <section>
