@@ -1,11 +1,11 @@
 // components/NeurogoldHeroSky.tsx
-import { type Locale, dict } from "@/lib/i18n";
+import { type Locale, dict } from "../lib/i18n";
 
 export default function NeurogoldHeroSky({ locale = "es" }: { locale?: Locale }) {
   const t = dict(locale);
   return (
     <section className="relative isolate overflow-hidden bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900">
-      {/* Fondo decorativo … (tu SVG/visual) */}
+      {/* Fondo decorativo (si tenés SVG/visual, va aquí) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-40" />
 
       {/* Copy por encima */}

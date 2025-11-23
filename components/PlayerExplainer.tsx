@@ -1,5 +1,5 @@
 // components/PlayerExplainer.tsx
-import { dict, type Locale } from "@/lib/i18n";
+import { dict, type Locale } from "../lib/i18n";
 
 export default function PlayerExplainer({ locale = "es" }: { locale?: Locale }) {
   const t = dict(locale).players;
